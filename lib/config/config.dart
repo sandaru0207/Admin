@@ -1,4 +1,4 @@
-const url = 'http://10.0.2.2:100/';
+const url = 'http://localhost:100/';
 
 final register = "${url}register";
 final loginn = "${url}login";
@@ -11,6 +11,7 @@ final adminlogin = "${url}adminlogin";
 final getusers = "${url}getusers";
 final removeuserr = "${url}removeuser";
 final removeorderr = "${url}removeorder";
+final removedeliver = "${url}removedeliver";
 final updatefoodlist = "${url}updatefoodlist";
 final getorders = "${url}getorders";
 final moveorders = "${url}moveorders";
