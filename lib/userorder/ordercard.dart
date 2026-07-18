@@ -92,7 +92,7 @@ class _order_cardState extends State<order_card> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "ID: " + widget.orderid,
+                "ID: ${widget.orderid}",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: size.width * 0.03,
@@ -309,7 +309,7 @@ class _order_cardState extends State<order_card> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Total: Rs." + widget.total.toString(),
+                "Total: Rs.${widget.total}",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: size.width * 0.05,
@@ -322,12 +322,12 @@ class _order_cardState extends State<order_card> {
                 width: size.width * 0.2,
                 height: size.height * 0.04,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 24, 117, 83),
+                  color: const Color.fromARGB(255, 24, 117, 83),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Stack(alignment: Alignment.center, children: [
                   Padding(
-                    padding: EdgeInsets.only(),
+                    padding: const EdgeInsets.only(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -336,7 +336,7 @@ class _order_cardState extends State<order_card> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: size.width * 0.03,
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                              color: const Color.fromARGB(255, 255, 255, 255)),
                         ),
                       ],
                     ),
