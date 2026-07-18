@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:canteen/config/config.dart';
-import 'package:canteen/orders/orders.dart';
+import 'package:canteen/deliver/delivers.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -48,17 +48,17 @@ class deliver_card extends StatefulWidget {
 class deliver_cardState extends State<deliver_card> {
   @override
   Widget build(BuildContext context) {
-    void moveorder() async {
+    void completedeliver() async {
       var reqbody = {"_id": widget.orderid};
 
-      var response = await http.post(Uri.parse(moveorders),
+      var response = await http.delete(Uri.parse(removedeliver),
           headers: {"content-Type": "application/json"},
           body: jsonEncode(reqbody));
 
       var jsonResponse = jsonDecode(response.body);
       if (jsonResponse['status']) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => allorderpage()));
+            context, MaterialPageRoute(builder: (context) => const deliverpage()));
       } else {
         print("Somthing went wrong");
       }
@@ -109,7 +109,7 @@ class deliver_cardState extends State<deliver_card> {
                 child: IconButton(
                   onPressed: () {
                     setState(() {
-                      moveorder();
+                      completedeliver();
                     });
                   },
                   icon: Icon(
