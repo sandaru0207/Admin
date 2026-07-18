@@ -111,23 +111,15 @@ class _userprofileState extends State<userprofile> {
                         ),
                         child: Stack(alignment: Alignment.center, children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: size.width * 0.07,
-                                top: size.width * 0.03,
-                                bottom: size.width * 0.03,
-                                right: size.width * 0.07),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Orders",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: size.width * 0.05,
-                                      color:
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                ),
-                              ],
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: Text(
+                              "Orders",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 0.05,
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255)),
                             ),
                           ),
                           Positioned.fill(
@@ -161,23 +153,15 @@ class _userprofileState extends State<userprofile> {
                         ),
                         child: Stack(alignment: Alignment.center, children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: size.width * 0.05,
-                                top: size.width * 0.03,
-                                bottom: size.width * 0.03,
-                                right: size.width * 0.05),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Remove",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: size.width * 0.05,
-                                      color:
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                ),
-                              ],
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: Text(
+                              "Remove",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 0.05,
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255)),
                             ),
                           ),
                           Positioned.fill(
