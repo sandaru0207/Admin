@@ -38,6 +38,19 @@ class _overviewState extends State<overview> {
   int dfish_count = 0;
   int dfish_price = 0;
 
+  int cveg_count = 0;
+  int cveg_price = 0;
+  int cegg_count = 0;
+  int cegg_price = 0;
+  int cchicken_count = 0;
+  int cchicken_price = 0;
+  int crice_count = 0;
+  int crice_price = 0;
+  int ckottu_count = 0;
+  int ckottu_price = 0;
+  int cfish_count = 0;
+  int cfish_price = 0;
+
   int users = 0;
 
   @override
@@ -45,6 +58,7 @@ class _overviewState extends State<overview> {
     super.initState();
     updatelist();
     updatedeliverlist();
+    updatecompletedlist();
     getUserCounts();
   }
 
@@ -113,8 +127,40 @@ class _overviewState extends State<overview> {
     }
   }
 
+  void updatecompletedlist() async {
+    var response = await http.get(Uri.parse(getcompletedoverview));
+
+    var json = jsonDecode(response.body);
+
+    if (json['status']) {
+      setState(() {
+        cveg_count = json['totalVegCount'];
+        cveg_price = json['vegPrice'];
+        cegg_count = json['totalEggCount'];
+        cegg_price = json['eggPrice'];
+        cchicken_count = json['totalChickenCount'];
+        cchicken_price = json['chickenPrice'];
+        crice_count = json['totalRiceCount'];
+        crice_price = json['ricePrice'];
+        ckottu_count = json['totalKottuCount'];
+        ckottu_price = json['kottuPrice'];
+        cfish_count = json['totalFishCount'];
+        cfish_price = json['fishPrice'];
+      });
+    } else {
+      print("not susces");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    int vegPrice = oveg_price != 0 ? oveg_price : (dveg_price != 0 ? dveg_price : cveg_price);
+    int eggPrice = oegg_price != 0 ? oegg_price : (degg_price != 0 ? degg_price : cegg_price);
+    int chickenPrice = ochicken_price != 0 ? ochicken_price : (dchicken_price != 0 ? dchicken_price : cchicken_price);
+    int fishPrice = ofish_price != 0 ? ofish_price : (dfish_price != 0 ? dfish_price : cfish_price);
+    int ricePrice = orice_price != 0 ? orice_price : (drice_price != 0 ? drice_price : crice_price);
+    int kottuPrice = okottu_price != 0 ? okottu_price : (dkottu_price != 0 ? dkottu_price : ckottu_price);
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -125,7 +171,7 @@ class _overviewState extends State<overview> {
             SizedBox(
               height: size.height * 0.08,
             ),
-            newMethod(size),
+            newMethod(size, vegPrice, eggPrice, chickenPrice, fishPrice, ricePrice, kottuPrice),
             Container(
               padding: EdgeInsets.only(
                   left: size.width * 0.03,
@@ -154,13 +200,13 @@ class _overviewState extends State<overview> {
                         color: const Color.fromRGBO(60, 121, 98, 1.0)),
                   ),
                   Text(
-                    (((dveg_count + oveg_count) * oveg_price) +
-                            ((oegg_count + degg_count) * oegg_price) +
-                            ((ofish_count + dfish_count) * ofish_price) +
-                            ((ochicken_count + dchicken_count) *
-                                ochicken_price) +
-                            ((orice_count + drice_count) * orice_price) +
-                            ((okottu_count + dkottu_count) * okottu_price))
+                    (((dveg_count + oveg_count + cveg_count) * vegPrice) +
+                            ((oegg_count + degg_count + cegg_count) * eggPrice) +
+                            ((ofish_count + dfish_count + cfish_count) * fishPrice) +
+                            ((ochicken_count + dchicken_count + cchicken_count) *
+                                chickenPrice) +
+                            ((orice_count + drice_count + crice_count) * ricePrice) +
+                            ((okottu_count + dkottu_count + ckottu_count) * kottuPrice))
                         .toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -213,39 +259,53 @@ class _overviewState extends State<overview> {
     );
   }
 
-  Column newMethod(Size size) {
+  Column newMethod(
+    Size size,
+    int vegPrice,
+    int eggPrice,
+    int chickenPrice,
+    int fishPrice,
+    int ricePrice,
+    int kottuPrice,
+  ) {
     return Column(
       children: <Widget>[
         summery(
             name: "Veg",
             oveg_count: oveg_count,
             dveg_count: dveg_count,
-            oveg_price: oveg_price),
+            cveg_count: cveg_count,
+            oveg_price: vegPrice),
         summery(
             name: "Egg",
             oveg_count: oegg_count,
             dveg_count: degg_count,
-            oveg_price: oegg_price),
+            cveg_count: cegg_count,
+            oveg_price: eggPrice),
         summery(
             name: "Chicken",
             oveg_count: ochicken_count,
             dveg_count: dchicken_count,
-            oveg_price: ochicken_price),
+            cveg_count: cchicken_count,
+            oveg_price: chickenPrice),
         summery(
             name: "Fish",
             oveg_count: ofish_count,
             dveg_count: dfish_count,
-            oveg_price: ofish_price),
+            cveg_count: cfish_count,
+            oveg_price: fishPrice),
         summery(
             name: "Rice",
             oveg_count: orice_count,
             dveg_count: drice_count,
-            oveg_price: orice_price),
+            cveg_count: crice_count,
+            oveg_price: ricePrice),
         summery(
             name: "Kottu",
             oveg_count: okottu_count,
             dveg_count: dkottu_count,
-            oveg_price: okottu_price)
+            cveg_count: ckottu_count,
+            oveg_price: kottuPrice)
       ],
     );
   }
@@ -257,11 +317,13 @@ class summery extends StatelessWidget {
     required this.name,
     required this.oveg_count,
     required this.dveg_count,
+    required this.cveg_count,
     required this.oveg_price,
   });
   final String name;
   final int oveg_count;
   final int dveg_count;
+  final int cveg_count;
   final int oveg_price;
 
   @override
@@ -275,7 +337,7 @@ class summery extends StatelessWidget {
           right: size.width * 0.03),
       alignment: Alignment.center,
       width: size.width * 0.9,
-      height: size.height * 0.16,
+      height: size.height * 0.20,
       margin: EdgeInsets.only(
           left: size.width * 0.03,
           bottom: size.width * 0.03,
@@ -322,11 +384,24 @@ class summery extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text("Completed",
+                  style: TextStyle(
+                      fontSize: size.width * 0.04,
+                      color: const Color.fromRGBO(60, 121, 98, 1.0))),
+              Text(cveg_count.toString(),
+                  style: TextStyle(
+                      fontSize: size.width * 0.04,
+                      color: const Color.fromRGBO(60, 121, 98, 1.0)))
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Text(name + " Total",
                   style: TextStyle(
                       fontSize: size.width * 0.04,
                       color: const Color.fromRGBO(60, 121, 98, 1.0))),
-              Text((dveg_count + oveg_count).toString(),
+              Text((dveg_count + oveg_count + cveg_count).toString(),
                   style: TextStyle(
                       fontSize: size.width * 0.04,
                       color: const Color.fromRGBO(60, 121, 98, 1.0)))
@@ -339,7 +414,7 @@ class summery extends StatelessWidget {
                   style: TextStyle(
                       fontSize: size.width * 0.04,
                       color: const Color.fromRGBO(60, 121, 98, 1.0))),
-              Text(((dveg_count + oveg_count) * oveg_price).toString(),
+              Text(((dveg_count + oveg_count + cveg_count) * oveg_price).toString(),
                   style: TextStyle(
                       fontSize: size.width * 0.04,
                       color: const Color.fromRGBO(60, 121, 98, 1.0)))
