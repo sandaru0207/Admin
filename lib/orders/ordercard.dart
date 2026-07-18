@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:canteen/config/config.dart';
 import 'package:canteen/orders/orders.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class allorder_card extends StatefulWidget {
   final String mobile_number;
+  final String student_id;
   final int total;
   final int veg_count;
   final int veg_price;
@@ -26,6 +26,7 @@ class allorder_card extends StatefulWidget {
   const allorder_card(
       {super.key,
       required this.mobile_number,
+      required this.student_id,
       required this.total,
       required this.veg_count,
       required this.veg_price,
@@ -94,7 +95,7 @@ class _allorder_cardState extends State<allorder_card> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "         " + widget.mobile_number,
+                    "         ${widget.student_id}",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: size.width * 0.05,
@@ -316,10 +317,18 @@ class _allorder_cardState extends State<allorder_card> {
             ],
           ),
           Text(
-            "Total: Rs." + widget.total.toString(),
+            "Total: Rs.${widget.total}",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: size.width * 0.05,
+                color: const Color.fromRGBO(60, 121, 98, 1.0)),
+          ),
+          SizedBox(height: size.height * 0.01),
+          Text(
+            widget.mobile_number,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: size.width * 0.045,
                 color: const Color.fromRGBO(60, 121, 98, 1.0)),
           ),
         ],

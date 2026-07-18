@@ -111,6 +111,7 @@ Widget buildorders(List<AllOrder> allorders) {
 
       return allorder_card(
           mobile_number: Order.mobile_number,
+          student_id: Order.student_id,
           total: Order.total,
           veg_count: Order.veg_count,
           veg_price: Order.veg_price,

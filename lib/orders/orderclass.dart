@@ -1,5 +1,6 @@
 class AllOrder {
   final String mobile_number;
+  final String student_id;
   final int total;
   final int veg_count;
   final int veg_price;
@@ -17,6 +18,7 @@ class AllOrder {
 
   const AllOrder({
     required this.mobile_number,
+    required this.student_id,
     required this.total,
     required this.veg_count,
     required this.veg_price,
@@ -35,6 +37,7 @@ class AllOrder {
 
   static AllOrder fromJson(json) => AllOrder(
         mobile_number: json['mobile_number'] ?? '',
+        student_id: json['student_id'] ?? '',
         total: json['total'] ?? 0,
         veg_count: json['veg_count'] ?? 0,
         veg_price: json['veg_price'] ?? 0,
